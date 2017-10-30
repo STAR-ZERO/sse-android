@@ -1,0 +1,111 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
+
+android {
+    compileSdkVersion 27
+    buildToolsVersion "27.0.0"
+
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 27
+    }
+
+    sourceSets.all {
+        java.srcDirs += "src/${name}/kotlin"
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+}
+
+dependencies {
+    testImplementation "junit:junit:$junit_version"
+    testImplementation "com.nhaarman:mockito-kotlin-kt1.1:$mockito_kotlin_version"
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
+}
+
+group = 'com.star_zero'
+version = '1.0.0'
+
+// ./gradlew bintrayUpload -Dbintray_user=USER -Dbintray_key=KEY
+bintray {
+    user = System.getProperty('bintray_user')
+    key = System.getProperty('bintray_key')
+
+    configurations = ['archives']
+
+    publish = true
+
+    pkg {
+        repo = 'maven'
+        name = 'sse'
+        userOrg = 'star-zero'
+        licenses = ['Apache-2.0']
+        websiteUrl = 'https://github.com/STAR-ZERO/sse-android'
+        issueTrackerUrl = 'https://github.com/STAR-ZERO/sse-android/issues'
+        vcsUrl = 'https://github.com/STAR-ZERO/sse-android.git'
+        githubRepo = 'STAR-ZERO/sse-android'
+    }
+}
+
+install {
+    repositories.mavenInstaller.pom.project {
+        name 'sse'
+        description 'Server-sent events (SSE) client for Android'
+        packaging 'aar'
+        url 'https://github.com/STAR-ZERO/sse-android'
+
+        licenses {
+            license {
+                name 'The Apache Software License, Version 2.0'
+                url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                distribution 'repo'
+            }
+        }
+
+        scm {
+            url 'https://github.com/STAR-ZERO/sse-android'
+            connection 'scm:git:https://github.com/STAR-ZERO/sse-android.git'
+            developerConnection 'scm:git:git@github.com:STAR-ZERO/sse-android.git'
+        }
+
+        developers {
+            developer {
+                id 'star-zero'
+                name 'Kenji Abe'
+            }
+        }
+    }
+}
+
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+task javadoc(type: Javadoc) {
+    excludes = ['**/*.kt']
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+

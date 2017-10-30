@@ -1,0 +1,41 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    ext {
+        android_grale_version = '3.0.0'
+        kotlin_version = '1.1.51'
+        maven_gradle_plugin_version = '2.0'
+        bintray_plugin_version = '1.7.3'
+    }
+
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:$android_grale_version"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "com.github.dcendents:android-maven-gradle-plugin:$maven_gradle_plugin_version"
+        classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:$bintray_plugin_version"
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+ext {
+    // Library
+    okhttp_version = '3.9.0'
+
+    // Test Library
+    junit_version = '4.12'
+    mockito_kotlin_version = '1.5.0'
+}
