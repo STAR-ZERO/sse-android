@@ -49,14 +49,16 @@ eventSource.setReadTimeout(5000);
 
 Add dependencies to Gradle.
 
+Latest Version: [ ![Download](https://api.bintray.com/packages/star-zero/maven/sse/images/download.svg) ](https://bintray.com/star-zero/maven/sse/_latestVersion)
+
 ```groovy
 repositories {
     jcenter()
 }
 
-compile 'com.star_zero:sse:1.0.0'
+compile 'com.star_zero:sse:<latest_version>'
 // Gradle Plugin 3.0+
-implementation 'com.star_zero:sse:1.0.0'
+implementation 'com.star_zero:sse:<latest_version>'
 ```
 
 ## License
