@@ -39,7 +39,7 @@ eventSource.close();
 
 #### Configure
 
-```
+```java
 // timeout (milli second)
 // default value = 0 (infinity)
 eventSource.setReadTimeout(5000);
@@ -60,6 +60,10 @@ compile 'com.star_zero:sse:<latest_version>'
 // Gradle Plugin 3.0+
 implementation 'com.star_zero:sse:<latest_version>'
 ```
+
+## Known issue
+
+If no response for long time, it will raise `java.io.EOFException`.
 
 ## License
 
