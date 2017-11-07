@@ -35,7 +35,7 @@ dependencies {
 }
 
 group = 'com.star_zero'
-version = '1.0.0'
+version = '1.1.0'
 
 // ./gradlew bintrayUpload -Dbintray_user=USER -Dbintray_key=KEY
 bintray {
