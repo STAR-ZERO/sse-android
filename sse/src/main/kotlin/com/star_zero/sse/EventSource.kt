@@ -6,6 +6,7 @@ import okhttp3.*
 import okio.BufferedSource
 import java.io.IOException
 import java.util.concurrent.Executors
+import java.util.concurrent.TimeUnit
 
 class EventSource(private val url: String, private val eventHandler: EventHandler) {
 
@@ -14,6 +15,8 @@ class EventSource(private val url: String, private val eventHandler: EventHandle
         val OPEN = 1
         val CLOSED = 2
     }
+
+    var readTimeout = 0L
 
     var readyState = CLOSED
         private set
@@ -47,7 +50,9 @@ class EventSource(private val url: String, private val eventHandler: EventHandle
     private fun connectInternal() {
         readyState = CONNECTING
 
-        val client = OkHttpClient()
+        val client = OkHttpClient.Builder()
+                .readTimeout(readTimeout, TimeUnit.MILLISECONDS)
+                .build()
         val builder = Request.Builder()
                 .url(url)
                 .addHeader("Accept", "text/event-stream")
@@ -152,7 +157,7 @@ class EventSource(private val url: String, private val eventHandler: EventHandle
 
         }
 
-        internal fun clear() {
+        private fun clear() {
             event = null
             id = null
             data.clear()

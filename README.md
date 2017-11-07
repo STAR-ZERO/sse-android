@@ -37,6 +37,14 @@ eventSource.connect();
 eventSource.close();
 ```
 
+#### Configure
+
+```
+// timeout (milli second)
+// default value = 0 (infinity)
+eventSource.setReadTimeout(5000);
+```
+
 ## Download
 
 Add dependencies to Gradle.
