@@ -25,12 +25,15 @@ class MainActivity : AppCompatActivity() {
 
         eventSource = EventSource(URL, object : EventHandler {
             override fun onOpen() {
+                // run on worker thread
                 Log.d(TAG, "open")
             }
             override fun onMessage(event: MessageEvent) {
+                // run on worker thread
                 Log.d(TAG, "message: $event")
             }
             override fun onError(e: Exception) {
+                // run on worker thread
                 Log.w(TAG, e)
             }
         })

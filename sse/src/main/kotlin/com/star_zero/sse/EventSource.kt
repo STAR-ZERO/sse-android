@@ -2,8 +2,6 @@
 
 package com.star_zero.sse
 
-import android.os.Handler
-import android.os.Looper
 import okhttp3.*
 import okio.BufferedSource
 import java.io.IOException
@@ -29,8 +27,6 @@ class EventSource(private val url: String, private val eventHandler: EventHandle
     private var call: Call? = null
 
     private var threadRetry: Thread? = null
-
-    private val handler = Handler(Looper.getMainLooper())
 
     fun connect() {
         close()
@@ -89,23 +85,17 @@ class EventSource(private val url: String, private val eventHandler: EventHandle
     }
 
     private fun notifyOpen() {
-        handler.post {
-            eventHandler.onOpen()
-        }
+        eventHandler.onOpen()
     }
 
     private fun notifyMessage(event: MessageEvent) {
-        handler.post {
-            eventHandler.onMessage(event)
-        }
+        eventHandler.onMessage(event)
     }
 
     private fun notifyError(e: Exception) {
         if (readyState == CLOSED) return
 
-        handler.post {
-            eventHandler.onError(e)
-        }
+        eventHandler.onError(e)
 
         if (call != null && !call!!.isCanceled) {
             readyState = CONNECTING

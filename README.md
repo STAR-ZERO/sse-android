@@ -11,16 +11,19 @@ Server-sent events (SSE) client for Android
 EventSource eventSource = new EventSource(URL, new EventHandler() {
     @Override
     public void onOpen() {
+        // run on worker thread
         Log.d(TAG, "Open");
     }
 
     @Override
     public void onMessage(MessageEvent messageEvent) {
+        // run on worker thread
         Log.d(TAG, "Message");
     }
 
     @Override
     public void onError(Exception e) {
+        // run on worker thread
         Log.w(TAG, e);
     }
 });
