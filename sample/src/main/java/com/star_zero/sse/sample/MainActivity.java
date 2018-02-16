@@ -11,6 +11,9 @@ import com.star_zero.sse.EventHandler;
 import com.star_zero.sse.EventSource;
 import com.star_zero.sse.MessageEvent;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -25,7 +28,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        eventSource = new EventSource(URL, new EventHandler() {
+        Map<String, String> header = new HashMap<>();
+        header.put("Authorization", "Token");
+        eventSource = new EventSource(URL, header, new EventHandler() {
             @Override
             public void onOpen() {
                 // run on worker thread

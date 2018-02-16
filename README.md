@@ -37,6 +37,16 @@ eventSource.connect();
 eventSource.close();
 ```
 
+#### Header
+
+```java
+Map<String, String> header = new HashMap<>();
+header.put("Authorization", "Token");
+eventSource = new EventSource(URL, header, new EventHandler() {
+    // ...
+}
+```
+
 #### Configure
 
 ```java

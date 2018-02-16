@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
@@ -24,6 +25,9 @@ public class EventSource {
 
     @NonNull
     private final String url;
+
+    @Nullable
+    private final Map<String, String> header;
 
     @NonNull
     private final EventHandler eventHandler;
@@ -44,7 +48,12 @@ public class EventSource {
     private Thread threadRetry;
 
     public EventSource(@NonNull String url, @NonNull EventHandler eventHandler) {
+        this(url, null, eventHandler);
+    }
+
+    public EventSource(@NonNull String url, @Nullable Map<String, String> header, @NonNull EventHandler eventHandler) {
         this.url = url;
+        this.header = header;
         this.eventHandler = eventHandler;
     }
 
@@ -98,6 +107,12 @@ public class EventSource {
 
         if (!lastEventId.isEmpty()) {
             builder.addHeader("Last-Event-ID", lastEventId);
+        }
+
+        if (header != null) {
+            for (Map.Entry<String,String> entry: header.entrySet()) {
+                builder.addHeader(entry.getKey(), entry.getValue());
+            }
         }
 
         call = client.newCall(builder.build());
