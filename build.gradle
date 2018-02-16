@@ -2,7 +2,7 @@
 
 buildscript {
     ext {
-        android_grale_version = '3.0.0'
+        android_grale_version = '3.0.1'
         maven_gradle_plugin_version = '2.0'
         bintray_plugin_version = '1.7.3'
     }
@@ -31,7 +31,7 @@ task clean(type: Delete) {
 
 ext {
     // Library
-    okhttp_version = '3.9.0'
+    okhttp_version = '3.9.1'
     support_annotation_version = '27.0.2'
 
     // Test Library

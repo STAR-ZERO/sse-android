@@ -4,7 +4,7 @@ apply plugin: 'com.jfrog.bintray'
 
 android {
     compileSdkVersion 27
-    buildToolsVersion "27.0.0"
+    buildToolsVersion "27.0.3"
 
     defaultConfig {
         minSdkVersion 16
@@ -26,8 +26,8 @@ dependencies {
     testImplementation "org.hamcrest:hamcrest-all:$hamcrest_version"
     testImplementation "org.mockito:mockito-core:$mockito_version"
 
-    implementation "com.android.support:support-annotations:$support_annotation_version"
-    implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
+    api "com.android.support:support-annotations:$support_annotation_version"
+    api "com.squareup.okhttp3:okhttp:$okhttp_version"
 }
 
 group = 'com.star_zero'
